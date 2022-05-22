@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:55:31 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/12 03:00:44 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/12 20:48:38 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int top_left_or_right(t_cub3d *cub3d)
         {
             if (cub3d->info_of_map[i][j] == '0')
             {
-                // cub3d->info_of_map[i][j] = 'N';
                 cub3d->f_x = j * TILE_SIZE;
                 cub3d->f_y = i * TILE_SIZE;
                 return (1);
@@ -58,9 +57,8 @@ static int top_left_or_right(t_cub3d *cub3d)
         {
             if (cub3d->info_of_map[i][j] == '0')
             {
-                // cub3d->info_of_map[i][j] = 'N';
                 cub3d->f_x = j * TILE_SIZE;
-                cub3d->f_y = j * TILE_SIZE;
+                cub3d->f_y = i * TILE_SIZE;
                 return (1);
             }
             j++;
@@ -96,8 +94,8 @@ static int buttom_left_or_right(t_cub3d *cub3d)
                 if (cub3d->info_of_map[i][j] == '0')
                 {
                     cub3d->info_of_map[i][j] = 'N';
-                    cub3d->f_x = i * TILE_SIZE;
-                    cub3d->f_y = j * TILE_SIZE;
+                    cub3d->f_x = j * TILE_SIZE;
+                    cub3d->f_y = i * TILE_SIZE;
                     return (1);
                 }
                 j++;
@@ -109,14 +107,11 @@ static int buttom_left_or_right(t_cub3d *cub3d)
 
 void change_the_position_of_player(t_cub3d *cub3d)
 {
-    // remove_the_player_into_the_map(cub3d);
-    cub3d->f_x = cub3d->width / 2;
-    cub3d->f_y = cub3d->height / 2;
-    if (cub3d->info_of_map[(int)(cub3d->height / TILE_SIZE) / 2][(int)(cub3d->width / TILE_SIZE) / 2] == '0')
-    {
-        // cub3d->info_of_map[(int)(cub3d->height / TILE_SIZE) / 2][(int)(cub3d->width / TILE_SIZE) / 2] = 'N';
+    remove_the_player_into_the_map(cub3d);
+    cub3d->f_x = WIDTH / 2;
+    cub3d->f_y = HEIGHT / 2;
+    if (cub3d->info_of_map[(cub3d->height / TILE_SIZE) / 2][(cub3d->width / TILE_SIZE) / 2] == '0')
         return ;
-    }
     else
     {
         if (top_left_or_right(cub3d))

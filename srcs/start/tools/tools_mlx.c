@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 21:29:18 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/12 03:33:34 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/15 03:49:47 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int     no_wall(t_cub3d *cub3d, float x, float y)
         return (0);
     x_map = floor(x);
     y_map = floor(y);
-    // printf ("max W {%f} MAX H [%f] to ckeck Y {%f} X {%f} \n", cub3d->width, cub3d->height, y, x);
     if (cub3d->info_of_map[(int)y_map / TILE_SIZE][(int)x_map / TILE_SIZE] == '1')
         return (0);
     return (1);

@@ -3,11 +3,18 @@ NAME = cub3d
 FLAGS = -Werror -Wextra -Wall
 
 SRCS =  srcs/cub3d.c \
-		errors/errors_map.c \
-		errors/errors_map_1.c \
+		errors/err/errors_map.c \
+		errors/err/errors_map_1.c \
+		errors/err/errors_map_2.c \
+		errors/err/errors_map_3.c \
+		errors/err/errors_map_4.c \
+		errors/err/errors_map_5.c \
 		errors/check/check.c \
 		errors/check/check_1.c \
 		errors/check/check_2.c \
+		errors/check/check_3.c \
+		errors/check/check_4.c \
+		errors/check/check_5.c \
 		srcs/lexer/lexer_collection_map.c \
 		srcs/lexer/lexer_collection_texture.c \
 		srcs/lexer/lexer_tools.c \
@@ -51,6 +58,9 @@ run:
 
 run_2:
 	@make re && ./cub3d maps/test.cub && make fclean
+
+run_3:
+	@make re && ./cub3d maps/test1.cub && make fclean
 
 clean:
 	@rm -rf $(OBJS)

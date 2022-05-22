@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:10:00 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/10 23:34:31 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/15 21:08:10 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,35 @@ int strlen_with(char *s, int c)
     if (s[i] == (char)c)
         return (i);
     return (0);
+}
+
+void    display_ray_info(t_ray **rays, t_cub3d *cub3d) 
+{
+    t_ray   *ray;
+    
+    (void)cub3d;
+    ray = *rays;
+    printf ("\n{||||||||||||||||||||||||||||||| STARTING PRINTING INFO RAYS ||||||||||||||||||||||||||||||||||||}\n");
+    
+    while (ray != NULL)
+    {
+        printf ("\n{||||||||||||||||||||||||||||||| INFO RAY [%d] ||| WIDTH {%d} ||| HEIGHT [%d] |||||||||||||||||||}\n\n", ray->ray_id, WIDTH, HEIGHT);
+    
+        if (ray->was_hit_horizontal == 1)
+            printf ("|||||||| RAY HIT WALL HORIZONTAL\n");
+        if (ray->was_hit_vertical == 1)
+            printf ("|||||||| RAY HIT WALL VERTICAL\n");
+        printf ("|||||||| RAY DISTANCE [%f]\n", ray->distance);
+        printf ("|||||||| WALL HEIGHT [%d]\n", ray->wall_h);
+        printf ("|||||||| THE HELF OF WALL {%d}\n", ray->wall_h_helf);
+        printf ("|||||||| WALL START CORDINATE Y [%d] X [%d]\n", ray->wall_start_y, ray->wall_start_x);
+        printf ("|||||||||| WALL END CORDINATE Y [%d] X [%d]\n", ray->wall_end_y, ray->wall_end_x);
+        
+        printf ("\n{||||||||||||||||||||||||||||||| END PRINTING INFO RAY [%d] ||||||||||||||||||||||||||||||||||||}\n\n", ray->ray_id);
+        ray = ray->next;
+    }
+    
+    printf ("\n{||||||||||||||||||||||||||||||| END PRINTING INFO RAYS ||||||||||||||||||||||||||||||||||||||||}\n");
 }
 
 void    display_info_map(char **info)

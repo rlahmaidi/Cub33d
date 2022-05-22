@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:24:42 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/10 20:42:49 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/15 03:05:52 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ t_ray   *init_ray(void)
     rays->was_hit_vertical = 0;
     rays->wall_hit_x = 0;
     rays->wall_hit_y = 0;
+    rays->wall_start_y = 0;
+    rays->wall_start_x = 0;
+    rays->wall_end_y = 0;
+    rays->wall_end_x = 0;
     rays->wall_hit_content = '\0';
+    rays->wall_h = 0;
+    rays->wall_h_helf = 0;
     rays->next = NULL;
     return (rays);
 }

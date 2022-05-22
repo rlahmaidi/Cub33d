@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:57:57 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/12 03:12:42 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/16 00:15:10 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_player    *init_player(t_cub3d *cub3d)
     player_new->turn_derection = get_turn_derection_p(cub3d);
     player_new->walk_derection = get_walk_derection_p(cub3d);
     player_new->rotation_angel = start_angle(player_new);
-    player_new->walk_speed = 20;
-    player_new->turn_speed = (45 * (M_PI / 180));
+    player_new->walk_speed = 10;
+    player_new->turn_speed = (15 * (M_PI / 180));
     return (player_new);
 }

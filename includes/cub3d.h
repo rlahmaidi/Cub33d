@@ -6,12 +6,12 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:53:10 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/12 03:05:11 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/15 22:45:19 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include "../libft/libft.h"
 
@@ -21,8 +21,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-//  i added this 
-# include <stdint.h>
 
 # define NO     21
 # define SO     22
@@ -32,100 +30,117 @@
 # define C      26 
 # define MAP    27
 
-# define TILE_SIZE      50
+# define WIDTH  1500
+# define HEIGHT 800
+# define TILE_SIZE	32
+
+# define TEXTURE_WIDTH	50
+# define TEXTURE_HEITH	50
 
 # define FOV_ANGLE (60 * (M_PI / 180))
 
-
 typedef struct s_player
 {
-    float       x;
-    float       y;
-    float   with;
-    float   height;
-    int         turn_derection; // -1 left and 1 for right
-    int         walk_derection; // -1 down and 1 for up
-    float       rotation_angel;
-    float       walk_speed;
-    float       turn_speed;
-}   t_player;
+	int		x;
+	int		y;
+	int		with;
+	int		height;
+	int		turn_derection;
+	int		walk_derection;
+	float	rotation_angel;
+	float	walk_speed;
+	float	turn_speed;
+}	t_player;
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_ray
 {
-    float   ray_angle;
-    float   wall_hit_x;
-    float   wall_hit_y;
-    float   distance;
-    int     ray_id;
-    int     was_hit_vertical;
-    int     was_hit_horizontal;
-    int     is_ray_facing_up;
-    int     is_ray_facing_down;
-    int     is_ray_facing_left;
-    int     is_ray_facing_right;
-    char     wall_hit_content;
-    struct s_ray *next;
-} t_ray;
+	float			ray_angle;
+	float			wall_hit_x;
+	float			wall_hit_y;
+	int				wall_start_x;
+	int				wall_start_y;
+	int				wall_end_x;
+	int				wall_end_y;
+	float			distance;
+	int				ray_id;
+	int				was_hit_vertical;
+	int				was_hit_horizontal;
+	int				is_ray_facing_up;
+	int				is_ray_facing_down;
+	int				is_ray_facing_left;
+	int				is_ray_facing_right;
+	char			wall_hit_content;
+	int				wall_h;
+	int				wall_h_helf;
+	struct s_ray	*next;
+}	t_ray;
 
 typedef struct s_cub3d
 {
-    float   fov_angle;
-    char    **info_of_map;
-    char    *no;
-    char    *so;
-    char    *we;
-    float   f_x;
-    float   f_y;
-    char    *ea;
-    void    *no_texture;
-    void    *so_texture;
-    void    *we_texture;
-    void    *ea_texture;
-    void    *player_texture;
-    void    *ground_texture;
-    char    *f;
-    char    *c;
-    int     floor_c;
-    int     ceilling_c;
-    float     width;
-    float     height;
-    float ray;
-    void            *ptr_init;
-    void            *ptr_win;
-    struct s_player *player;
-    struct s_ray *rays;
-    // i added this;
-    uint32_t *colorbuffer;
-}   t_cub3d;
+	float			fov_angle;
+	char			**info_of_map;
+	char			*no;
+	char			*so;
+	char			*we;
+	float			f_x;
+	float			f_y;
+	char			*ea;
+	void			*no_texture;
+	void			*so_texture;
+	void			*we_texture;
+	void			*ea_texture;
+	void			*player_texture;
+	void			*ground_texture;
+	char			*f;
+	char			*c;
+	int				floor_c;
+	int				ceilling_c;
+	int				width;
+	int				height;
+	float			ray;
+	void			*ptr_init;
+	void			*ptr_win;
+	struct s_player	*player;
+	struct s_ray	*rays;
+	struct s_data data;
+}	t_cub3d;
 
 typedef struct s_lexer
 {
-    unsigned int    index;
-    char            c;
-    char            *contents;
-    int             no_bool;
-    int             so_bool;
-    int             we_bool;
-    int             ea_bool;
-    int             f_bool;
-    int             c_bool;
-    int             one_starting_position_bool;
-    int             map_bool;
-} t_lexer;
+	unsigned int	index;
+	char			c;
+	char			*contents;
+	int				no_bool;
+	int				so_bool;
+	int				we_bool;
+	int				ea_bool;
+	int				f_bool;
+	int				c_bool;
+	int				one_starting_position_bool;
+	int				map_bool;
+}	t_lexer;
 
 typedef struct s_token
 {
-    int             type;
-    char            *value;
-    struct s_token  *next;
-} t_token;
-
+	int				type;
+	char			*value;
+	struct s_token	*next;
+}	t_token;
 
 // GET STARTED
-void    cast_all_rays(t_cub3d *cub3d);
-void    free_rays(t_ray **head);
-t_ray   *init_ray(void);
-void    push_ray(t_ray **head, t_ray *new);
+void		display_ray_info(t_ray **rays, t_cub3d *cub3d);
+void		cast_all_rays(t_cub3d *cub3d);
+void		free_rays(t_ray **head);
+t_ray		*init_ray(void);
+void		push_ray(t_ray **head, t_ray *new);
 void     launch(t_cub3d *cub3d);
 int     length_of_map(char **table);
 int max__with_in_map(char **table);
@@ -140,6 +155,14 @@ void DDA_ray(t_cub3d *cub3d , int Y1, int X1, int color);
 
 
 double      rad2deg(double rad);
+
+int	len_table(char **table);
+int check_name_of_textuers(t_cub3d *cub3d);
+int check_color_ceilling(t_cub3d *cub3d);
+int check_color_floor(t_cub3d *cub3d);
+int     check_space(t_cub3d *cub3d_info, int i, int j, int n);
+int     check_space_is_not_closed(t_cub3d *cub3d_info, int n);
+int	check_double_new_lines(char *lines);
 
 /* lexer */
 t_lexer     *lexer_init(char *content);
@@ -159,7 +182,7 @@ int     no_wall(t_cub3d *cub3d, float x, float y);
 void    get_one_info(t_lexer *lexer, int type);
 
 t_cub3d    *init_cub3d_info();
-
+int	help_convert(t_token *token, t_cub3d *cub3d);
 /* token */
 t_token     *init_token(int type, char *value);
 void        push_back_token(t_token **list, t_token *new);
@@ -211,6 +234,8 @@ int     error_syntax_c(void);
 int     error_syntax_map(void);
 int    error_file_exist(int fd);
 int     error_name_tex(void);
+t_token	*error_malloc_t(void);
+t_token	*error_map_empty_t(char *name_of_file);
 
 t_token *error_on_map(void);
 
@@ -233,5 +258,8 @@ void    free_table(char **table);
 char    *ft_table_dup_to_string(char **info_of_map);
 // char    **alocate_2d_table(char *name_of_file);
 char    **stock_info_map(char *name_of_map);
+// mlx functions;
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
 
 #endif

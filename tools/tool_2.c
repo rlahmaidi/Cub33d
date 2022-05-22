@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 01:50:02 by ybouali           #+#    #+#             */
-/*   Updated: 2022/04/04 21:42:13 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/13 17:35:33 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,32 @@ char    **alocate_2d_table(char *name_of_file)
     return (info_of_map);
 }
 
-char    **stock_info_map(char *name_of_map)
+char    **stock_help(char **map, int fd)
 {
     char    *line;
-    int     fd;
     int     i;
+    
+    line = get_next_line(fd);
+    i = 0;
+    while (line)
+    {
+        map[i] = ft_strdup(line);
+        if (!map[i])
+        {
+            error_malloc();
+            return (NULL);
+        }
+        i++;
+        free (line);
+        line = get_next_line(fd);
+    }
+    close (fd);
+    return (map);
+}
+
+char    **stock_info_map(char *name_of_map)
+{
+    int     fd;
     char    **info_of_map;
     
     info_of_map = alocate_2d_table(name_of_map);
@@ -68,20 +89,5 @@ char    **stock_info_map(char *name_of_map)
         error_fd(name_of_map);
         return (NULL);
     }
-    line = get_next_line(fd);
-    i = 0;
-    while (line)
-    {
-        info_of_map[i] = ft_strdup(line);
-        if (!info_of_map[i])
-        {
-            error_malloc();
-            return (NULL);
-        }
-        i++;
-        free (line);
-        line = get_next_line(fd);
-    }
-    close (fd);
-    return (info_of_map);
+    return (stock_help(info_of_map, fd));
 }

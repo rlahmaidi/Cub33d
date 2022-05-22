@@ -6,7 +6,7 @@
 /*   By: ybouali <ybouali@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 23:45:18 by ybouali           #+#    #+#             */
-/*   Updated: 2022/05/12 03:18:21 by ybouali          ###   ########.fr       */
+/*   Updated: 2022/05/15 03:47:08 by ybouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void     cast_ray(t_cub3d *cub3d, float ray_angle, int ray_id)
             next_horz_touch_x += x_step;
             next_horz_touch_y += y_step;
         }
-        if (next_horz_touch_x > cub3d->width || next_horz_touch_y > cub3d->height)
-            break;   
     }
     
     float ver_des;
@@ -116,6 +114,7 @@ void     cast_ray(t_cub3d *cub3d, float ray_angle, int ray_id)
             {
                 ray->was_hit_horizontal = 0;
                 ray->was_hit_vertical = 1;
+                ray->distance = ver_des;
                 ray->wall_hit_x = next_horz_touch_x;
                 ray->wall_hit_y = next_horz_touch_y;
             }
@@ -137,17 +136,11 @@ void    cast_all_rays(t_cub3d *cub3d)
     int     ray_id;
     
     ray_id = -1;
-    while (++ray_id < (cub3d->width / TILE_SIZE))
+    while (++ray_id < (WIDTH / TILE_SIZE))
     {
         cast_ray(cub3d, ray_angle, ray_id);
         cub3d->ray = ray_angle;
-        // DDA_ray(
-        //     cub3d,
-        //     cub3d->player->y + sin(ray_angle) * 100,
-        //     cub3d->player->x + cos(ray_angle) * 100,
-        //     encode_rgb(0,0,0)
-        // );
-        ray_angle += (FOV_ANGLE / (cub3d->width / TILE_SIZE));
+        ray_angle += (FOV_ANGLE / (WIDTH / TILE_SIZE));
     }
     
 }
